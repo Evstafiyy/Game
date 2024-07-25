@@ -37,8 +37,9 @@ router.post('/registration', async (req, res) => {
       id: newUser.id,
       name: newUser.name,
       email: newUser.email,
-      gameId: gameForUser.id,
     };
+
+    
 
     const { accessToken, refreshToken } = generateTokens({ user });
 
@@ -46,7 +47,7 @@ router.post('/registration', async (req, res) => {
       res
         .status(201)
         .cookie('refresh', refreshToken, { httpOnly: true })
-        .json({ message: 'success', user, accessToken });
+        .json({ message: 'success', user, gameId: gameForUser.id, accessToken });
       return;
     }
 

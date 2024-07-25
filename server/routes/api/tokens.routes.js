@@ -5,6 +5,9 @@ const generateTokens = require('../../utils/authUtils');
 router.get('/refresh', verifyRefreshToken, (req, res) => {
   const { user } = res.locals;
   const { gameId } = res.locals.user;
+ 
+   
+
   const { accessToken, refreshToken } = generateTokens({ user });
   res
     .cookie('refresh', refreshToken, { httpOnly: true })

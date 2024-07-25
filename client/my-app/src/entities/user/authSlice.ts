@@ -4,6 +4,7 @@ import type { User, UserLoginForm, UserRegistrationForm } from './types/userType
 
 type UserState = {
   user: User | undefined;
+  gameId: number | undefined;
   accessToken: string | undefined;
   errors: string | undefined;
 };
@@ -12,7 +13,11 @@ const initialState: UserState = {
   user: undefined,
   accessToken: undefined,
   errors: undefined,
+  gameId: undefined
 };
+
+console.log(initialState);
+
 
 export const registration = createAsyncThunk('registration/user', (data: UserRegistrationForm) =>
   AuthApi.registration(data),
@@ -35,6 +40,7 @@ export const authSlice = createSlice({
       .addCase(registration.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
+        state.gameId = action.payload.gameId
         state.errors = undefined;
       })
       .addCase(registration.rejected, (state, action) => {
@@ -60,6 +66,7 @@ export const authSlice = createSlice({
       .addCase(tokensRefresh.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.accessToken = action.payload.accessToken;
+        state.gameId = action.payload.gameId
         state.errors = undefined;
       })
       .addCase(tokensRefresh.rejected, (state, action) => {

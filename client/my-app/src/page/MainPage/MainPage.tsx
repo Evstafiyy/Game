@@ -4,6 +4,13 @@ import AuthorizationPage from '../AuthPages/AuthorizationPage';
 
 function MainPage(): JSX.Element {
   const user = useAppSelector((store) => store.auth.user)
+  
+  const gameId = useAppSelector((store)=> store.auth.gameId)
+  
+  console.log(111, user)
+  console.log(222, gameId)
+   
+
 
   return (
     <div className="MainPage">
