@@ -1,6 +1,7 @@
 import React from 'react';
 
 function MainPage(): JSX.Element {
+  
   return (
     <div className="MainPage">
       <h1>Парни у нас все получится!!!</h1>
