@@ -1,3 +1,4 @@
+
 const router = require('express').Router();
 const { User, Game } = require('../../db/models');
 const generateTokens = require('../../utils/authUtils');
@@ -18,15 +19,19 @@ router.post('/registration', async (req, res) => {
       res
         .status(400)
         .json({ message: 'Такой пользователь уже зарегестрирован' });
+
       return;
     }
     const hashPassword = await bcrypt.hash(password, 10);
 
+
     let newUser = await User.create({
+
       name,
       email,
       password: hashPassword,
     });
+
 
     const gameForUser = await Game.create({ userId: newUser.id, score: 0 });
     
@@ -41,21 +46,25 @@ router.post('/registration', async (req, res) => {
 
     
 
+
     const { accessToken, refreshToken } = generateTokens({ user });
 
     if (user) {
       res
         .status(201)
+
         .cookie('refresh', refreshToken, { httpOnly: true })
         .json({ message: 'success', user, gameId: gameForUser.id, accessToken });
       return;
     }
 
     res.status(400).json({ message: 'Что-то пошло не так' });
+
   } catch ({ message }) {
     res.status(500).json({ error: message });
   }
 });
+
 
 router.post('/authorization', async (req, res) => {
   console.log(123456);
@@ -74,10 +83,12 @@ router.post('/authorization', async (req, res) => {
 
     
 
+
     if (user) {
       const isCompare = await bcrypt.compare(password, user.password);
       if (isCompare) {
         delete user.dataValues.password;
+
 
         const { accessToken, refreshToken } = generateTokens({
           ...user,
@@ -94,14 +105,17 @@ router.post('/authorization', async (req, res) => {
     }
 
     res.status(400).json({ message: 'email или пароль не совпадают' });
+
   } catch ({ message }) {
     res.status(500).json({ error: message });
   }
 });
 
+
 router.get('/logout', (req, res) => {
   res.locals.user = undefined;
   res.status(200).clearCookie('refresh').json({ message: 'success' });
 });
+
 
 module.exports = router;

@@ -5,7 +5,9 @@ import type { User, UserLoginForm, UserRegistrationForm } from '../types/userTyp
 type AuthResponse = {
   user: User;
   accessToken: string;
+
   gameId: number;
+
 };
 
 class AuthApi {
@@ -16,11 +18,13 @@ class AuthApi {
         data,
       );
 
+
      console.log(response)
       
      console.log(response.data)
       return response.data;
       
+
     } catch (error) {
       throw new Error(`Error: ${error.message}`);
     }

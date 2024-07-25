@@ -1,3 +1,4 @@
+
 const router = require('express').Router();
 const verifyRefreshToken = require('../../middleware/verifyRefreshToken');
 const generateTokens = require('../../utils/authUtils');
@@ -13,6 +14,7 @@ router.get('/refresh', verifyRefreshToken, (req, res) => {
     .cookie('refresh', refreshToken, { httpOnly: true })
     .status(200)
     .json({ message: 'success', accessToken, user, gameId });
+
 });
 
 module.exports = router;

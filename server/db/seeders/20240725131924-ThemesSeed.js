@@ -7,7 +7,13 @@ module.exports = {
       "Themes",
       [
         {
-          title: "DataTypes STRING",
+          title: "Вопросы от Бени",
+        },
+        {
+          title: "Поехала кукуха",
+        },
+        {
+          title: "Лучшие программисты",
         },
       ],
       {}
