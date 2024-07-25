@@ -10,10 +10,7 @@ function Navbar(): JSX.Element {
         </li>
 
         <li>
-          <NavLink to="/films">films</NavLink>
-        </li>
-        <li>
-          <NavLink to="/genres">genres</NavLink>
+          <NavLink to="/games">games</NavLink>
         </li>
       </ul>
     </nav>

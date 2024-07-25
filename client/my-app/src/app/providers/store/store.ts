@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { filmSlice } from '../../../entities/film/filmSlice';
+
 
 const store = configureStore({
   reducer: {
-    film: filmSlice.reducer,
+    // film: filmSlice.reducer,
   },
 });
 
