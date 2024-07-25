@@ -5,12 +5,12 @@ const app = express();
 
 const PORT = process.env.PORT;
 
-// const indexRouter = require('./routes/index.routes');
+const indexRouter = require('./routes/index.routes');
 const serverConfig = require('./config/serverConfig');
 
 serverConfig(app);
 
-// app.use('/api', indexRouter);
+app.use('/api', indexRouter);
 
 app.listen(PORT, () => {
   console.log(`Работает ${PORT} порт`);

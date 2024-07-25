@@ -16,11 +16,12 @@ async function verifyRefreshToken(req, res, next) {
     });
 
     const game = await Game.findOne({where: {userId:user.id}})
-
-    // user.gameId = game.id
+    console.log(game)
 
     res.locals.user = user;
     res.locals.user.gameId = game.id
+
+    console.log(res.locals.user.gameId)
 
     next();
   } catch (error) {

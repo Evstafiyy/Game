@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const { User, Game } = require('../../db/models');
-const generateTokens = require('../../utils/authUtils')
+const generateTokens = require('../../utils/authUtils');
+const bcrypt = require('bcrypt');
 
 router.post('/registration', async (req, res) => {
+  console.log(1111);
   try {
     const { name, email, password } = req.body;
     if (name.trim() === '' || email.trim() === '' || password.trim() === '') {
@@ -11,6 +13,7 @@ router.post('/registration', async (req, res) => {
     }
 
     const userInDb = await User.findOne({ where: { email } });
+    console.log(2222, userInDb);
     if (userInDb) {
       res
         .status(400)
@@ -25,14 +28,17 @@ router.post('/registration', async (req, res) => {
       password: hashPassword,
     });
 
-    const gameForUser = await  Game.create({userId: newUser.id, score:0})
+    const gameForUser = await Game.create({ userId: newUser.id, score: 0 });
+    
+
+    console.log(3333, gameForUser);
 
     const user = {
       id: newUser.id,
-      name : newUser.name, 
+      name: newUser.name,
       email: newUser.email,
-      gameId: gameForUser.id
-    }
+      gameId: gameForUser.id,
+    };
 
     const { accessToken, refreshToken } = generateTokens({ user });
 
@@ -51,6 +57,7 @@ router.post('/registration', async (req, res) => {
 });
 
 router.post('/authorization', async (req, res) => {
+  console.log(123456);
   try {
     const { email, password } = req.body;
     // проверка на пустые поля
@@ -58,14 +65,23 @@ router.post('/authorization', async (req, res) => {
       res.status(400).json({ message: 'заполните все поля' });
       return;
     }
-    const user = await User.findOne({where:{email}});
+    console.log(email);
+    const user = await User.findOne({ where: { email } });
+     
+    const gameForUser = await Game.findAll();
+    console.log(55555,gameForUser)
+
+    
 
     if (user) {
       const isCompare = await bcrypt.compare(password, user.password);
       if (isCompare) {
         delete user.dataValues.password;
 
-        const { accessToken, refreshToken } = generateTokens({ user });
+        const { accessToken, refreshToken } = generateTokens({
+          ...user,
+          ...gameForUser,
+        });
         res
           .status(200)
           .cookie('refresh', refreshToken, { httpOnly: true })

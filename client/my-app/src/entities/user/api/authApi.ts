@@ -15,6 +15,8 @@ class AuthApi {
         data,
       );
 
+     console.log(response)
+
       return response.data;
     } catch (error) {
       throw new Error(`Error: ${error.message}`);
