@@ -10,6 +10,42 @@ module.exports = {
           userId: 1,
           score: 2,
         },
+        {
+          userId: 1,
+          score: 2,
+        },
+        {
+          userId: 1,
+          score: 2,
+        },
+        {
+          userId: 1,
+          score: 2,
+        },
+        {
+          userId: 1,
+          score: 2,
+        },
+        {
+          userId: 1,
+          score: 2,
+        },
+        {
+          userId: 1,
+          score: 2,
+        },
+        {
+          userId: 1,
+          score: 2,
+        },
+        {
+          userId: 1,
+          score: 2,
+        },
+        {
+          userId: 1,
+          score: 2,
+        },
       ],
       {}
     );
