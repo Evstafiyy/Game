@@ -11,6 +11,42 @@ module.exports = {
           questionId: 1,
           status: false,
         },
+        {
+          gameId: 1,
+          questionId: 1,
+          status: false,
+        },
+        {
+          gameId: 1,
+          questionId: 1,
+          status: false,
+        },
+        {
+          gameId: 1,
+          questionId: 1,
+          status: false,
+        },
+        {
+          gameId: 1,
+          questionId: 1,
+          status: false,
+        },
+        {
+          gameId: 1,
+          questionId: 1,
+          status: false,
+        },
+        {
+          gameId: 1,
+          questionId: 1,
+          status: false,
+        },
+        {
+          gameId: 1,
+          questionId: 1,
+          status: false,
+        },
+        
       ],
       {}
     );
