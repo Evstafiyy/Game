@@ -14,27 +14,27 @@ module.exports = {
         },
         {
           name: "bibo",
-          email: "admin@mail.ru",
+          email: "bibo@mail.ru",
           password: await bcrypt.hash("12345",10),
         },
         {
           name: "bobo",
-          email: "admin@mail.ru",
+          email: "bobo@mail.ru",
           password: await bcrypt.hash("12345",10),
         },
         {
           name: "bim",
-          email: "admin@mail.ru",
+          email: "bim@mail.ru",
           password: await bcrypt.hash("12345",10),
         },
         {
           name: "bam",
-          email: "admin@mail.ru",
+          email: "bam@mail.ru",
           password: await bcrypt.hash("12345",10),
         },
         {
           name: "bum",
-          email: "admin@mail.ru",
+          email: "bum@mail.ru",
           password: await bcrypt.hash("12345",10),
         },
       ],
