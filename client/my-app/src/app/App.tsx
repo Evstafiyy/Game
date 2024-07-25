@@ -9,7 +9,7 @@ import Navbar from '../widgets/navbar/Navbar';
 
 function App(): JSX.Element {
 // const dispatch = useAppDispatch()
-
+ 
   useEffect(() => {
   // void dispatch(getAllFilm())
   }, []);
