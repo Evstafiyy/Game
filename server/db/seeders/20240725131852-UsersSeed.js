@@ -32,6 +32,11 @@ module.exports = {
           email: "admin@mail.ru",
           password: await bcrypt.hash("12345",10),
         },
+        {
+          name: "bum",
+          email: "admin@mail.ru",
+          password: await bcrypt.hash("12345",10),
+        },
       ],
       {}
     );
