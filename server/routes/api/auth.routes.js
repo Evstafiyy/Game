@@ -1,6 +1,6 @@
-
 const router = require('express').Router();
-const { User, Game } = require('../../db/models');
+const { raw } = require('express');
+const { User, Game, GameLine } = require('../../db/models');
 const generateTokens = require('../../utils/authUtils');
 const bcrypt = require('bcrypt');
 
@@ -24,28 +24,35 @@ router.post('/registration', async (req, res) => {
     }
     const hashPassword = await bcrypt.hash(password, 10);
 
-
     let newUser = await User.create({
-
       name,
       email,
       password: hashPassword,
     });
 
-
     const gameForUser = await Game.create({ userId: newUser.id, score: 0 });
-    
 
-    console.log(3333, gameForUser);
+    console.log(3333, gameForUser.dataValues);
+
+    let gameLine = [];
+    for (let i = 1; i < 10; i++) {
+      gameLine.push({
+        gameId: gameForUser.dataValues.id,
+        questionId: i,
+        status: true,
+      });
+    }
+
+    console.log(444, gameLine);
+    const data = await GameLine.bulkCreate(gameLine);
+
+    console.log(555, data.dataValues);
 
     const user = {
       id: newUser.id,
       name: newUser.name,
       email: newUser.email,
     };
-
-    
-
 
     const { accessToken, refreshToken } = generateTokens({ user });
 
@@ -54,17 +61,20 @@ router.post('/registration', async (req, res) => {
         .status(201)
 
         .cookie('refresh', refreshToken, { httpOnly: true })
-        .json({ message: 'success', user, gameId: gameForUser.id, accessToken });
+        .json({
+          message: 'success',
+          user,
+          gameId: gameForUser.id,
+          accessToken,
+        });
       return;
     }
 
     res.status(400).json({ message: 'Что-то пошло не так' });
-
   } catch ({ message }) {
     res.status(500).json({ error: message });
   }
 });
-
 
 router.post('/authorization', async (req, res) => {
   console.log(123456);
@@ -77,27 +87,28 @@ router.post('/authorization', async (req, res) => {
     }
     console.log(email);
     const user = await User.findOne({ where: { email } });
-     
-    const gameForUser = await Game.findAll();
-    console.log(55555,gameForUser)
 
-    
-
+    const gameForUser = await Game.findOne({
+      where: { userId: user.id },
+      raw: true,
+    });
+    console.log(55555, gameForUser);
 
     if (user) {
       const isCompare = await bcrypt.compare(password, user.password);
       if (isCompare) {
         delete user.dataValues.password;
 
-
-        const { accessToken, refreshToken } = generateTokens({
-          ...user,
-          ...gameForUser,
-        });
+        const { accessToken, refreshToken } = generateTokens({ user });
         res
           .status(200)
           .cookie('refresh', refreshToken, { httpOnly: true })
-          .json({ message: 'success', accessToken, user });
+          .json({
+            message: 'success',
+            accessToken,
+            user,
+            gameId: gameForUser.id,
+          });
         return;
       }
       res.status(400).json({ message: 'email или пароль не совпадают' });
@@ -105,17 +116,14 @@ router.post('/authorization', async (req, res) => {
     }
 
     res.status(400).json({ message: 'email или пароль не совпадают' });
-
   } catch ({ message }) {
     res.status(500).json({ error: message });
   }
 });
 
-
 router.get('/logout', (req, res) => {
   res.locals.user = undefined;
   res.status(200).clearCookie('refresh').json({ message: 'success' });
 });
-
 
 module.exports = router;

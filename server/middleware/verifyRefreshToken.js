@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User, Game } = require('../db/models');
 
-
 async function verifyRefreshToken(req, res, next) {
   try {
     // проверяем куку на наличие токена
@@ -14,14 +13,14 @@ async function verifyRefreshToken(req, res, next) {
       where: { id: user.id },
       attributes: ['id', 'name', 'email'],
     });
-
-    const game = await Game.findOne({where: {userId:user.id}})
-    console.log(game)
+    console.log(user);
+    const game = await Game.findOne({ where: { userId: user.id } });
+    console.log(game);
 
     res.locals.user = user;
-    res.locals.user.gameId = game.id
+    res.locals.user.gameId = game.id;
 
-    console.log(res.locals.user.gameId)
+    console.log(res.locals.user.gameId);
 
     next();
   } catch (error) {

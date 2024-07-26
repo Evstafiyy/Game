@@ -6,6 +6,7 @@ import { logout } from '../../entities/user/authSlice';
 
 function Navbar(): JSX.Element {
   const user = useSelector((store: RootState) => store.auth.user);
+  console.log(123123, user);
 
   const dispatch = useAppDispatch();
 
