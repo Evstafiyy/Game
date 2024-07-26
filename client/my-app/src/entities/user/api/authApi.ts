@@ -7,7 +7,6 @@ type AuthResponse = {
   accessToken: string;
 
   gameId: number;
-
 };
 
 class AuthApi {
@@ -18,13 +17,10 @@ class AuthApi {
         data,
       );
 
+      console.log(response);
 
-     console.log(response)
-      
-     console.log(response.data)
+      console.log(response.data);
       return response.data;
-      
-
     } catch (error) {
       throw new Error(`Error: ${error.message}`);
     }
@@ -50,6 +46,8 @@ class AuthApi {
 
   static tokensRefresh = async (): Promise<AuthResponse> => {
     const response: AxiosResponse<AuthResponse> = await axiosInstance.get('/tokens/refresh');
+    console.log(response);
+
     return response.data;
   };
 }
