@@ -8,43 +8,27 @@ module.exports = {
       [
         {
           userId: 1,
-          score: 2,
+          score: 0,
         },
         {
           userId: 2,
-          score: 2,
+          score: 0,
         },
         {
           userId: 3,
-          score: 2,
+          score: 0,
         },
         {
           userId: 4,
-          score: 2,
+          score: 0,
         },
         {
           userId: 5,
-          score: 2,
+          score: 0,
         },
         {
           userId: 1,
-          score: 2,
-        },
-        {
-          userId: 2,
-          score: 2,
-        },
-        {
-          userId: 3,
-          score: 2,
-        },
-        {
-          userId: 4,
-          score: 2,
-        },
-        {
-          userId: 5,
-          score: 2,
+          score: 0,
         },
       ],
       {}
